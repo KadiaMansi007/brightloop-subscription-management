@@ -1,6 +1,6 @@
 -- Brightloop shared schema (Participant 1 owns this file; changes go through P1)
-CREATE DATABASE IF NOT EXISTS brightloop_subscription_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE brightloop_subscription_db;
+CREATE DATABASE IF NOT EXISTS ce1_mansi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE ce1_mansi;
 SET FOREIGN_KEY_CHECKS=0;
 
 CREATE TABLE IF NOT EXISTS users (

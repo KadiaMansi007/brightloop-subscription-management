@@ -16,3 +16,12 @@ td.actions{display:flex;gap:6px}td form{display:inline;margin:0}.between{display
 .pager a{display:inline-block;padding:4px 10px;margin:2px;border-radius:5px;background:#fff;text-decoration:none}.pager a.on{background:#3b5bdb;color:#fff}
 .muted{color:#6b7389}.preview{margin:16px 0;padding:12px;background:#eef1f9;border-radius:8px}small{color:#6b7389}
 @media(max-width:700px){table{display:block;overflow-x:auto}}
+
+/* merged modules */
+form.inline{display:inline-block;margin:0 4px 4px 0}
+form.inline input,form.inline select{width:auto;display:inline-block;padding:4px}
+.badge.b-paid,.badge.b-active,.badge.b-accepted,.badge.b-converted,.badge.b-confirmed{background:#d9f2e0;color:#146c2e}
+.badge.b-draft,.badge.b-closed,.badge.b-cancelled,.badge.b-expired,.badge.b-inactive{background:#e7e9ee;color:#444}
+.badge.b-sent,.badge.b-paused,.badge.b-quotation{background:#fff1cc;color:#8a5a00}
+.stat{display:inline-block;min-width:150px;margin:0 8px 8px 0}
+@media print{.topbar,.btn,form,.pager{display:none!important}}

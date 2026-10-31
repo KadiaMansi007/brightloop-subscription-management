@@ -16,9 +16,9 @@ function home_for(string $role): string {
     return ['admin' => 'admin/dashboard.php', 'staff' => 'staff/dashboard.php', 'customer' => 'customer/dashboard.php'][$role] ?? 'login.php';
 }
 function nav_for(string $role): array {
-    if ($role === 'admin') return ['Dashboard' => 'admin/dashboard.php', 'Users' => 'admin/users.php', 'Products' => 'admin/products.php', 'Plans' => 'admin/plans.php', 'Taxes' => 'admin/taxes.php'];
-    if ($role === 'staff') return ['Dashboard' => 'staff/dashboard.php'];
-    return ['Dashboard' => 'customer/dashboard.php'];
+    if ($role === 'admin') return ['Dashboard' => 'admin/dashboard.php', 'Users' => 'admin/users.php', 'Products' => 'admin/products.php', 'Plans' => 'admin/plans.php', 'Taxes' => 'admin/taxes.php', 'Discounts' => 'admin/discounts.php', 'Templates' => 'admin/templates.php', 'Quotations' => 'admin/quotations.php', 'Subscriptions' => 'admin/subscriptions.php', 'Invoices' => 'admin/invoices.php', 'Reports' => 'admin/reports.php'];
+    if ($role === 'staff') return ['Dashboard' => 'staff/dashboard.php', 'Quotations' => 'admin/quotations.php', 'Subscriptions' => 'admin/subscriptions.php', 'Invoices' => 'admin/invoices.php'];
+    return ['Dashboard' => 'customer/dashboard.php', 'Subscriptions' => 'customer/subscriptions.php', 'Invoices' => 'customer/invoices.php', 'Payments' => 'customer/payments.php', 'Profile' => 'customer/profile.php'];
 }
 function login_user(array $u): void { session_regenerate_id(true); $_SESSION['uid'] = (int)$u['id']; }
 function logout_user(): void {
