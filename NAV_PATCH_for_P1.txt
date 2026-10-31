@@ -1,0 +1,4 @@
+Add these navigation items to your admin sidebar:
+- <a href="admin/templates.php">Quotation Templates</a>
+- <a href="admin/subscriptions.php">Subscriptions</a>
+- <a href="admin/invoices.php">Invoices</a>
