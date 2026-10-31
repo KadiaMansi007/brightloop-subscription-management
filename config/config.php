@@ -3,9 +3,9 @@
 if (file_exists(__DIR__ . '/config.local.php')) require __DIR__ . '/config.local.php';
 defined('APP_NAME')  || define('APP_NAME', 'Brightloop Subscriptions');
 defined('APP_ENV')   || define('APP_ENV', 'dev');            // 'prod' hides reset links and error details
-defined('BASE_URL')  || define('BASE_URL', '/brightloop-subscription-management'); // folder inside htdocs
+defined('BASE_URL')  || define('BASE_URL', ''); // empty when running PHP server from this project folder
 defined('DB_HOST')   || define('DB_HOST', '127.0.0.1');
-defined('DB_NAME')   || define('DB_NAME', 'ce1_mansi');
+defined('DB_NAME')   || define('DB_NAME', 'brightloop_subscription_db');
 defined('DB_USER')   || define('DB_USER', 'root');
 defined('DB_PASS')   || define('DB_PASS', '');
 defined('RESET_TOKEN_MINUTES') || define('RESET_TOKEN_MINUTES', 30);

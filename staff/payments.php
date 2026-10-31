@@ -1,17 +1,7 @@
 <?php
-require_once __DIR__.'/../includes/auth.php'; require_staff();
-require_once __DIR__.'/../modules/payment-manager.php';
-$pageTitle='Record Payment'; require_once __DIR__.'/../includes/header.php';
-$message='';
-if($_SERVER['REQUEST_METHOD']==='POST'){
- try{record_manual_payment($pdo,(int)$_POST['invoice_id'],(int)$_POST['customer_id'],(float)$_POST['amount'],$_POST['method']??'manual',trim($_POST['reference']??'')?:null,current_user_id());$message='Payment recorded successfully.';}
- catch(Throwable $e){$message='Could not record payment: '.h($e->getMessage());}
-}
-?><h1>Record manual/demo payment</h1><p><?=h($message)?></p>
-<form method="post" class="panel"><label>Invoice ID <input type="number" name="invoice_id" min="1" required></label>
-<label>Customer ID <input type="number" name="customer_id" min="1" required></label>
-<label>Amount <input type="number" step=".01" min=".01" name="amount" required></label>
-<label>Method <select name="method"><option value="cash">Cash</option><option value="bank_transfer">Bank transfer</option><option value="upi_demo">UPI demo</option><option value="manual">Manual</option></select></label>
-<label>Reference (optional) <input name="reference" maxlength="100"></label><button>Record payment</button></form>
-<p class="muted">Demo/manual record only. This page does not charge a card or initiate a UPI payment.</p>
-<?php require_once __DIR__.'/../includes/footer.php';?>
+require __DIR__.'/../includes/bootstrap.php';$u=require_role(['admin','staff']);require_once __DIR__.'/../modules/payment-manager.php';$message='';
+if($_SERVER['REQUEST_METHOD']==='POST'){csrf_check();try{record_manual_payment(db(),(int)$_POST['invoice_id'],(float)$_POST['amount'],$_POST['method']??'cash',trim($_POST['reference']??'')?:null,(int)$u['id']);$message='Payment recorded successfully.';}catch(Throwable $e){$message=$e->getMessage();}}
+$pageTitle='Record payment';include __DIR__.'/../includes/header.php';?>
+<h1>Record manual / demo payment</h1><?php if($message):?><div class="alert"><?=e($message)?></div><?php endif?>
+<form method="post" class="panel"><?=csrf_field()?><label>Invoice ID<input type="number" name="invoice_id" min="1" required></label><label>Amount<input type="number" name="amount" min=".01" step=".01" required></label><label>Method<select name="method"><option value="cash">Cash</option><option value="bank_transfer">Bank transfer</option><option value="card">Card (demo)</option><option value="upi">UPI (demo)</option><option value="other">Other</option></select></label><label>Reference<input name="reference" maxlength="100"></label><button class="btn">Record payment</button></form><p class="muted">Demo/manual record only. This does not charge a card or initiate a UPI transfer.</p>
+<?php include __DIR__.'/../includes/footer.php';?>

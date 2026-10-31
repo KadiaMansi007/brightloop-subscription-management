@@ -1,11 +1,7 @@
 <?php
-require_once '../includes/bootstrap.php';
-require_once '../includes/auth.php';
-// Create/Edit Quotation Template Form
-?>
-<h2>Create Quotation Template</h2>
-<form method="POST">
-    <input type="text" name="name" placeholder="Template Name" required><br>
-    <input type="number" name="validity_days" placeholder="Validity (Days)" required><br>
-    <button type="submit">Save Template</button>
-</form>
+require __DIR__.'/../includes/bootstrap.php';$u=require_role(['admin']);$plans=db()->query("SELECT id,name FROM plans ORDER BY name")->fetchAll();$msg='';
+if($_SERVER['REQUEST_METHOD']==='POST'){csrf_check();$name=trim($_POST['name']??'');$days=max(1,(int)($_POST['validity_days']??30));$plan=$_POST['plan_id']!==''?(int)$_POST['plan_id']:null;
+ if($name==='')$msg='Enter a template name.';else{$q=db()->prepare("INSERT INTO quotation_templates(name,plan_id,validity_days,created_by) VALUES(?,?,?,?)");$q->execute([$name,$plan,$days,$u['id']]);flash('success','Template created.');redirect('admin/templates.php');}}
+$pageTitle='Create template';include __DIR__.'/../includes/header.php';?>
+<h1>Create quotation template</h1><?php if($msg):?><div class="alert"><?=e($msg)?></div><?php endif?><form method="post" class="panel"><?=csrf_field()?><label>Name<input name="name" required></label><label>Plan (optional)<select name="plan_id"><option value="">None</option><?php foreach($plans as $p):?><option value="<?=e($p['id'])?>"><?=e($p['name'])?></option><?php endforeach?></select></label><label>Validity days<input type="number" name="validity_days" min="1" value="30" required></label><button class="btn">Save template</button></form>
+<?php include __DIR__.'/../includes/footer.php';?>
